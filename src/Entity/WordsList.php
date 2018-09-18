@@ -7,12 +7,13 @@ use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\JoinTable;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Word;
+use App\Entity\Theme;
 
 /**
  * @ApiResource
  * @ORM\Entity(repositoryClass="App\Repository\ThemeRepository")
  */
-class Theme
+class WordsList
 {
     /**
      * @ORM\Id()
@@ -20,6 +21,19 @@ class Theme
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * Undocumented variable
+     *
+     * @var [type]
+     */
+    private $author;
+
+    /**
+     * The default name
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
+    private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)

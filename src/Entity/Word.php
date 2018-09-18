@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\JoinTable;
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Entity\Theme;
 
 /**
  * @ApiResource
@@ -136,5 +137,15 @@ class Word
         $this->it = $it;
 
         return $this;
+    }
+
+    /**
+     * Add a theme to this word
+     *
+     * @param Theme $theme
+     * @return void
+     */
+    public function addTheme(Theme $theme){
+        $this->themes->add($theme);
     }
 }
