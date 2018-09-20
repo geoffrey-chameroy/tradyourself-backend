@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\ManyToMany;
-use Doctrine\ORM\Mapping\JoinTable;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Word;
 
@@ -53,7 +51,13 @@ class Theme
 
     /**
      * Many Themes have Many Words.
-     * @ManyToMany(targetEntity="Word", mappedBy="themes")
+     * @ORM\ManyToMany(targetEntity="Word", mappedBy="themes")
+     */
+    private $words;
+
+    /**
+     * Many Themes have Many WordsLists.
+     * @ORM\ManyToMany(targetEntity="WordsList", mappedBy="themes")
      */
     private $words;
 
@@ -61,16 +65,32 @@ class Theme
         $this->words = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    /**
+     * Return the id of the theme
+     *
+     * @return integer|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * Get the french name
+     *
+     * @return string|null
+     */
     public function getNameFr(): ?string
     {
         return $this->nameFr;
     }
 
+    /**
+     *  Set the french name
+     *
+     * @param string|null $nameFr
+     * @return self
+     */
     public function setNameFr(?string $nameFr): self
     {
         $this->nameFr = $nameFr;
@@ -78,11 +98,22 @@ class Theme
         return $this;
     }
 
+    /**
+     * Get the english name
+     *
+     * @return string|null
+     */
     public function getNameEn(): ?string
     {
         return $this->nameEn;
     }
 
+    /**
+     * Set the english name
+     *
+     * @param string|null $nameEn
+     * @return self
+     */
     public function setNameEn(?string $nameEn): self
     {
         $this->nameEn = $nameEn;
@@ -90,11 +121,22 @@ class Theme
         return $this;
     }
 
+    /**
+     * Get the spanish name
+     *
+     * @return string|null
+     */
     public function getNameEs(): ?string
     {
         return $this->nameEs;
     }
 
+    /**
+     * Set the spanish name
+     *
+     * @param string|null $nameEs
+     * @return self
+     */
     public function setNameEs(?string $nameEs): self
     {
         $this->nameEs = $nameEs;
@@ -102,23 +144,45 @@ class Theme
         return $this;
     }
 
+    /**
+     * Get the french name
+     *
+     * @return string|null
+     */
     public function getNamePt(): ?string
     {
         return $this->namePt;
     }
 
-    public function setNameEs(?string $namePt): self
+    /**
+     * Set the portuguese name
+     *
+     * @param string|null $namePt
+     * @return self
+     */
+    public function setNamePt(?string $namePt): self
     {
         $this->namePt = $namePt;
 
         return $this;
     }
 
+    /**
+     * Get the german name
+     *
+     * @return string|null
+     */
     public function getNameDe(): ?string
     {
         return $this->nameDe;
     }
 
+    /**
+     * Set the german name
+     *
+     * @param string|null $nameDe
+     * @return self
+     */
     public function setNameDe(?string $nameDe): self
     {
         $this->nameDe = $nameDe;
@@ -126,11 +190,22 @@ class Theme
         return $this;
     }
 
+    /**
+     * Get the italian name
+     *
+     * @return string|null
+     */
     public function getNameIt(): ?string
     {
         return $this->nameIt;
     }
 
+    /**
+     *  Set the Italian name
+     *
+     * @param string|null $nameIt
+     * @return self
+     */
     public function setNameIt(?string $nameIt): self
     {
         $this->nameIt = $nameIt;

@@ -3,11 +3,10 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\ManyToMany;
-use Doctrine\ORM\Mapping\JoinTable;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Word;
 use App\Entity\Theme;
+use App\Entity\User;
 
 /**
  * @ApiResource
@@ -16,18 +15,33 @@ use App\Entity\Theme;
 class WordsList
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer",type="guid")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="UUID")
      */
     private $id;
 
     /**
-     * Undocumented variable
-     *
-     * @var [type]
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
      */
     private $author;
+    
+    /**
+     * Indique si la liste est privée ou publique (visible de tous)
+     * 0 : privée
+     * 1 : publique
+     * 
+     * @ORM\Column(type="smallint", nullable=false)
+     */
+    private $visibilite;
+
+    /**
+     * Une liste officielle est une liste crée par tradyourself
+     *
+     * @ORM\Column(type="boolean", nullable=false)
+     */
+    private $official;
 
     /**
      * The default name
@@ -67,9 +81,16 @@ class WordsList
 
     /**
      * Many Themes have Many Words.
-     * @ManyToMany(targetEntity="Word", mappedBy="themes")
+     * @ORM\ManyToMany(targetEntity="Word", mappedBy="themes")
      */
     private $words;
+
+    /**
+     * Many WordsLists have Many Themes.
+     * @ORM\ManyToMany(targetEntity="Theme", inversedBy="wordslists")
+     * 
+     */
+    private $themes;
 
     public function __construct() {
         $this->words = new \Doctrine\Common\Collections\ArrayCollection();
@@ -121,7 +142,7 @@ class WordsList
         return $this->namePt;
     }
 
-    public function setNameEs(?string $namePt): self
+    public function setNamePt(?string $namePt): self
     {
         $this->namePt = $namePt;
 
@@ -160,5 +181,27 @@ class WordsList
     public function addWord(Word $word){
         $word->addTheme($this);
         $this->words->add($word);
+    }
+
+    /**
+     * Set the author of the wordslist
+     *
+     * @param User $user
+     * @return void
+     */
+    public function setAuthor(User $user) : WordsList 
+    {
+        $this->author = $user;
+        return $this;
+    }
+
+    /**
+     * Return the author of the wordslist
+     *
+     * @return User|null
+     */
+    public function getAuthor() : ?User
+    {
+        return $this->author;
     }
 }

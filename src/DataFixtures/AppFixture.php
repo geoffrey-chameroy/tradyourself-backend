@@ -3,6 +3,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Word;
 use App\Entity\Theme;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -16,6 +17,13 @@ class AppFixture extends Fixture
      */
     public function load(ObjectManager $manager)
     {   
+        $user = new User();
+        $user->setUsername('Tradyourself');
+        $user->setPassword('root');
+        $user->setEmail('aaaa@aaa.aa');
+        $manager->persist($user);
+
+        //Themes & Words
         $themeCirque = $this->createTheme($manager,'Cirque', [
             'clown' => 'clown',
             'juggler' => 'jongleur',
@@ -68,7 +76,7 @@ class AppFixture extends Fixture
      */
     private function createTheme(ObjectManager $manager,string $name, array $wordList){
         $theme =  new Theme();
-        $theme->setName($name);
+        $theme->setNameFr($name);
         foreach($wordList as $wordEn => $wordFr){
             $word = new Word();
             $word->setEn($wordEn);

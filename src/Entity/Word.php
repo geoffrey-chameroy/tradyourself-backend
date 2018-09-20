@@ -53,25 +53,44 @@ class Word
 
     /**
      * Many Words have Many Themes.
-     * @ManyToMany(targetEntity="Theme", inversedBy="words")
+     * @ORM\ManyToMany(targetEntity="Theme", inversedBy="words")
      * 
      */
     private $themes;
 
+    /**
+     * Initialize the word with an empty collection of themes
+     */
     public function __construct() {
         $this->themes = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return integer|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return string|null
+     */
     public function getFr(): ?string
     {
         return $this->fr;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param string $fr
+     * @return self
+     */
     public function setFr(string $fr): self
     {
         $this->fr = $fr;
@@ -79,11 +98,22 @@ class Word
         return $this;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return string|null
+     */
     public function getEn(): ?string
     {
         return $this->en;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param string $en
+     * @return self
+     */
     public function setEn(string $en): self
     {
         $this->en = $en;
@@ -91,11 +121,22 @@ class Word
         return $this;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return string|null
+     */
     public function getEs(): ?string
     {
         return $this->es;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param string $es
+     * @return self
+     */
     public function setEs(string $es): self
     {
         $this->es = $es;
@@ -103,11 +144,22 @@ class Word
         return $this;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return string|null
+     */
     public function getPt(): ?string
     {
         return $this->pt;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param string|null $pt
+     * @return self
+     */
     public function setPt(?string $pt): self
     {
         $this->pt = $pt;
@@ -115,11 +167,22 @@ class Word
         return $this;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return string|null
+     */
     public function getDe(): ?string
     {
         return $this->de;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param string $de
+     * @return self
+     */
     public function setDe(string $de): self
     {
         $this->de = $de;
@@ -127,11 +190,22 @@ class Word
         return $this;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return string|null
+     */
     public function getIt(): ?string
     {
         return $this->it;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param string $it
+     * @return self
+     */
     public function setIt(string $it): self
     {
         $this->it = $it;
